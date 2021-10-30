@@ -20,7 +20,7 @@ test('creates get name as an object', () => {
 test('creates get id as an object', () => {
     const employee = new Employee('Manny', 3, 'mele0019@gmail.com');
 
-    expect(employee.getId()).toEqual(expect.stringContaining(employee.id.toString()))
+    expect(employee.getId()).toEqual(expect.any(Number))
    
 
 });
