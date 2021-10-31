@@ -52,7 +52,7 @@ To contribute to Team_profile_generator, clone this repo locally and commit your
 - Jest
 
 ## Questions
-Find me on GitHub: https://github.com/https://github.com/mmelendez3
+Find me on GitHub: https://github.com/mmelendez3
 Email me with questions: mele0019@gmail.com
   
 Below is the link to my demo video 
