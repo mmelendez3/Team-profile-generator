@@ -47,7 +47,7 @@ To contribute to Team_profile_generator, clone this repo locally and commit your
 
   ## Video of how app works.
   
-  ![Link to Demo Video](https://drive.google.com/file/d/1jBNJeOLe8xu91te643zi6W-MP_oZWBZ9/view)
+  -[Link to Demo Video](https://drive.google.com/file/d/1jBNJeOLe8xu91te643zi6W-MP_oZWBZ9/view)
 
 ## Technology Used
 - HTML
