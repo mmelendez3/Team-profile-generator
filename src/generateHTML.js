@@ -1,6 +1,7 @@
 // create Manager card
 const generateManager = function (manager) {
     return `
+    
     <div class="card mx-auto bg-primary text-white" style="width: 18rem"">
     <div class="card-header">
    ${manager.name} <br/>
@@ -11,6 +12,7 @@ const generateManager = function (manager) {
     <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
     </ul>
 </div>
+
     `
     
 }
@@ -18,6 +20,7 @@ const generateManager = function (manager) {
 // create Engineer card
 const generateEngineer = function (engineer) {
     return `
+    
     <div class="card mx-auto bg-primary text-white" style="width: 18rem">
             <div class="card-header">
            ${engineer.name} <br/>
@@ -28,6 +31,7 @@ const generateEngineer = function (engineer) {
             <li class="list-group-item">Github Username: <a target="_blank" href="https://github.com/${engineer.gitHub}">${engineer.gitHub}</a></li>
             </ul>
         </div>
+        
     `
     
 }
@@ -35,6 +39,7 @@ const generateEngineer = function (engineer) {
 // create Intern card 
 const generateIntern = function (intern) {
     return  `
+    
     <div class="card mx-auto bg-primary text-white" style="width: 18rem">
             <div class="card-header">
            ${intern.name} <br/>
@@ -45,6 +50,7 @@ const generateIntern = function (intern) {
             <li class="list-group-item">School: ${intern.school}</li>
             </ul>
         </div>
+        
     `
     
 }
@@ -55,10 +61,10 @@ const generateIntern = function (intern) {
 generateHTML = (data) => {
 
     // array for cards 
-    html = []; 
+    html = []
 
     for (let i = 0; i < data.length; i++) {
-        const employee = data[i];
+        const employee = data[i]
         const role = employee.getRole()
 
 
@@ -66,14 +72,14 @@ generateHTML = (data) => {
         if (role === 'Manager') {
             const managerCard = generateManager(employee)
 
-            html.push(managerCard);
+            html.push(managerCard)
         }
 
         // call engineer function
         if (role === 'Engineer') {
             const engineerCard = generateEngineer(employee)
 
-            html.push(engineerCard);
+            html.push(engineerCard)
         }
 
         // call intern function 
@@ -85,10 +91,10 @@ generateHTML = (data) => {
         
     }
     // joining strings 
-    const employeeCards = html.join('')
+    const teamCards = html.join('')
 
     // return to generated page
-    const generateTeam = generateTeamPage(employeeCards)
+    const generateTeam = generateTeamPage(teamCards)
     return generateTeam
 
 }
@@ -97,7 +103,7 @@ generateHTML = (data) => {
 
 
 // export function to generate entire page
-const generateTeamPage = function (employeeCards) {
+const generateTeamPage = function (teamCards) {
 
     return `
     <!DOCTYPE html>
@@ -116,7 +122,7 @@ const generateTeamPage = function (employeeCards) {
 <nav class="navbar navbar-dark bg-warning mb-5">
 <span class="navbar-brand mb-0 h1 w-100 text-center">My Team</span>
 </nav>
-    <main> ${employeeCards} </main>
+    <main> ${teamCards} </main>
      
 </body>
 </html>

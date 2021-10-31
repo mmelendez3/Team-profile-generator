@@ -75,7 +75,7 @@ const addManager = () => {
         const manager = new Manager (name, id, email, officeNumber)
 
         teamMembers.push(manager)
-        console.log(manager)
+        
     })
 };
 
@@ -174,12 +174,12 @@ const addEmployee = () => {
         if (role === "Engineer") {
             employee = new Engineer (name, id, email, github)
 
-            console.log(employee)
+            
 
         } else if (role === "Intern") {
             employee = new Intern (name, id, email, school)
 
-            console.log(employee)
+            
         }
 
         teamMembers.push(employee)
