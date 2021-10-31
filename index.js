@@ -14,13 +14,13 @@ const Manager = require("./lib/Manager")
 //team profile array
 const teamMembers = []
 
-//manaager prompt
-const promptManager = () => {
+// start of manager prompts 
+const addManager = () => {
     return inquirer.prompt ([
         {
-            type: "input",
-            name: "name",
-            message: "What is the manager's name?", 
+            type: 'input',
+            name: 'name',
+            message: 'What is your name?', 
             validate: nameInput => {
                 if (nameInput) {
                     return true
@@ -31,9 +31,9 @@ const promptManager = () => {
             }
         },
         {
-            type: "input",
-            name: "id",
-            message: "Please enter the manager's ID.",
+            type: 'input',
+            name: 'id',
+            message: "Enter your employee ID.",
             validate: nameInput => {
                 if  (isNaN(nameInput)) {
                     console.log ("Please enter the manager's ID!")
@@ -44,90 +44,75 @@ const promptManager = () => {
             }
         },
         {
-            type: "input",
-            name: "email",
-            message: "What is the team manager's email address?",
-            validate: nameInput => {
-                if (nameInput === '') {
-                    return "Please enter an email address."
-                }
-                else {
+            type: 'input',
+            name: 'email',
+            message: "Please enter your email.",
+            validate: email => {
+                if (email) {
                     return true
+                } else {
+                    console.log('Please enter your email address!')
+                    return false
                 }
             }
         },
         {
-            type: "input",
-            name: "officeNumber",
-            message: "Please enter the manager's office number",
+            type: 'input',
+            name: 'officeNumber',
+            message: "Please enter your office number",
             validate: nameInput => {
                 if  (isNaN(nameInput)) {
-                    console.log ("Please enter an office number!")
+                    console.log ('Please enter an office number!')
                     return false
                 } else {
                     return true
                 }
             }
         }
-    ]).then(answers => {
-        console.log(answers)
-        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+    ])
+    .then(managerInput => {
+        const  { name, id, email, officeNumber } = managerInput
+        const manager = new Manager (name, id, email, officeNumber)
+
         teamMembers.push(manager)
-        promptMenu()
+        console.log(manager)
     })
-}
+};
 
-const promptMenu = () => {
-    return inquirer.prompt([
-        {
-            type: "list",
-            name: "menu",
-            message: "Please select which option you would like to continue with:",
-            choices: ["add an engineer", "add an intern", "finish building my team"]
-            
-        }])
-        .then(userChoice => {
-            switch (userChoice.menu) {
-                case "add an engineer":
-                    promptEngineer()
-                    break
-                case "add an intern":
-                    promptIntern()
-                    break
-                default:
-                    buildTeam()
-            }
-        })
-    }
-
-const promptEngineer = () => {
+const addEmployee = () => {
     console.log(`
-  ===================
-  Add a New Engineer
-  ===================
-  `)
+    =============================
+    Adding employees to the team
+    =============================
+    `);
 
-  return inquirer.prompt([
-    {
-        type: "input",
-            name: "name",
-            message: "What is the engineer's name?", 
+    return inquirer.prompt ([
+        {
+            type: 'list',
+            name: 'role',
+            message: "Please choose your employee's role",
+            choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name',
+            message: "What's the name of the employee?", 
             validate: nameInput => {
                 if (nameInput) {
                     return true
                 } else {
-                    console.log ("Please enter the engineer's name.")
+                    console.log ("Please enter an employee's name!")
                     return false
                 }
             }
         },
         {
-            type: "input",
-            name: "id",
-            message: "Please enter the engineer's ID.",
+            type: 'input',
+            name: 'id',
+            message: "Please enter the employee's ID.",
             validate: nameInput => {
                 if  (isNaN(nameInput)) {
-                    console.log ("Please enter the engineer's ID!")
+                    console.log ("Please enter the employee's ID!")
                     return false
                 } else {
                     return true
@@ -135,122 +120,102 @@ const promptEngineer = () => {
             }
         },
         {
-            type: "input",
-            name: "email",
-            message: "What is the engineer's email address?",
-            validate: nameInput => {
-                if (nameInput === '') {
-                    return "Please enter an email address."
-                }
-                else {
+            type: 'input',
+            name: 'email',
+            message: "Please enter the employee's email.",
+            validate: email => {
+                if (email) {
                     return true
+                } else {
+                    console.log('Please enter your email address!')
+                    return false
                 }
             }
         },
         {
-            type: "input",
-            name: "githubUsername",
-            message: "What is the engineer's gitHub username?",
+            type: 'input',
+            name: 'github',
+            message: "Please enter the employee's github username.",
+            when: (input) => input.role === "Engineer",
             validate: nameInput => {
-                if (nameInput === '') {
-                    return "Please enter an gitHub username."
-                }
-                else {
+                if (nameInput ) {
                     return true
+                } else {
+                    console.log ("Please enter the employee's github username!")
                 }
             }
-        }
-    ]).then(answers => {
-        console.log(answers)
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub)
-        teamMembers.push(engineer)
-        promptMenu()
-    })
-
-}
-
-const promptIntern = () => {
-    console.log(`
-  =================
-  Add a New Intern
-  =================
-  `)
-
-  return inquirer.prompt([
-    {
-        type: "input",
-            name: "name",
-            message: "What is the interns name?", 
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: "Please enter the intern's school",
+            when: (input) => input.role === "Intern",
             validate: nameInput => {
                 if (nameInput) {
                     return true
                 } else {
-                    console.log ("Please enter the interns name.")
-                    return false
+                    console.log ("Please enter the intern's school!")
                 }
             }
         },
         {
-            type: "input",
-            name: "id",
-            message: "Please enter the interns ID.",
-            validate: nameInput => {
-                if  (isNaN(nameInput)) {
-                    console.log ("Please enter the interns ID!")
-                    return false
-                } else {
-                    return true
-                }
-            }
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "What is the interns email address?",
-            validate: nameInput => {
-                if (nameInput === '') {
-                    return "Please enter an email address."
-                }
-                else {
-                    return true
-                }
-            }
-        },
-        {
-            type: "input",
-            name: "school",
-            message: "Enter the interns school name",
-            validate: nameInput => {
-                if (nameInput === '') {
-                    return "Please enter an school name."
-                }
-                else {
-                    return true
-                }
-            }
+            type: 'confirm',
+            name: 'confirmAddEmployee',
+            message: 'Would you like to add more team members?',
+            default: false
         }
-    ]).then(answers => {
-        console.log(answers)
-        const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
-        teamMembers.push(intern)
-        promptMenu()
-    })
-}
+    ])
+    .then(employeeData => {
+        // data for employee types 
 
-const buildTeam = (teamMembers) => {
-    console.log(`
-  ===========================
-  Finished building my team!
-  ===========================
-  `)
-  writeData = generateHTML(teamMembers)
-  fs.writeFile('./dist/index.HTML', writeData, err => {
-      if(err) {
-          throw err
-      }else {
-          console.log("Team has been built!")
-      }
+        let { name, id, email, role, github, school, confirmAddEmployee } = employeeData; 
+        let employee; 
+
+        if (role === "Engineer") {
+            employee = new Engineer (name, id, email, github)
+
+            console.log(employee)
+
+        } else if (role === "Intern") {
+            employee = new Intern (name, id, email, school)
+
+            console.log(employee)
+        }
+
+        teamMembers.push(employee)
+
+        if (confirmAddEmployee) {
+            return addEmployee(teamMembers)
+        } else {
+            return teamMembers
+        }
+    })
+
+};
+
+
+// function to generate HTML page file using file system 
+const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+        // if there is an error 
+        if (err) {
+            console.log(err)
+            return
+        // when the profile has been created 
+        } else {
+            console.log("Your team profile has been successfully created! Please check out the index.html")
+        }
+    })
+}; 
+
+addManager()
+  .then(addEmployee)
+  .then(teamMembers => {
+    return generateHTML(teamMembers)
   })
-}
-
-promptManager()
+  .then(pageHTML => {
+    return writeFile(pageHTML)
+  })
+  .catch(err => {
+ console.log(err)
+  })
